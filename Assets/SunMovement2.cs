@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SunMovement : MonoBehaviour
+public class SunMovement2 : MonoBehaviour
 {
     private MyStopWatch overallStopWatch = new MyStopWatch();
     private MyStopWatch longerSunShiningStopWatch = new MyStopWatch(false);
@@ -12,8 +12,8 @@ public class SunMovement : MonoBehaviour
     private Rigidbody compRb;
     private Light compLight;
 
-    const int secondsBeforeSunMovement1 = 35;
-    const int secondsBeforeSunMovement2 = 9;
+    const int secondsBeforeSunMovement1 = 0;
+    const int secondsBeforeSunMovement2 = 20;
     bool hasDoneSunMovement1 = false;
     bool hasDoneSunMovement2 = false;
 
@@ -24,13 +24,13 @@ public class SunMovement : MonoBehaviour
             return;
         }
 
-        if (!longerSunShiningStopWatch.isRunning() || longerSunShiningStopWatch.execeedesMilliseconds(700)) {
-            longerSunShiningStopWatch.stop();
+        // if (!longerSunShiningStopWatch.isRunning() || longerSunShiningStopWatch.execeedesMilliseconds(700)) {
+        //     longerSunShiningStopWatch.stop();
 
-            float randomIntensity = getRandomIntensity(currentSecondsCounter);
+        //     float randomIntensity = getRandomIntensity(currentSecondsCounter);
 
-            setColor(randomIntensity);
-        }
+        //     setColor(randomIntensity);
+        // }
         
         moveTheSun(currentSecondsCounter);
     }
@@ -70,12 +70,13 @@ public class SunMovement : MonoBehaviour
         if (hasDoneSunMovement1 == false) {
             doSunMovement1();
             hasDoneSunMovement1 = true;
-        } else if (hasDoneSunMovement1 == true
-                && hasDoneSunMovement2 == false
-                && currentSecondsCounter >= (secondsBeforeSunMovement1 + secondsBeforeSunMovement2)) {
-            doSunMovement2();
-            hasDoneSunMovement2 = true;
-        }
+        } 
+        // else if (hasDoneSunMovement1 == true
+        //         && hasDoneSunMovement2 == false
+        //         && currentSecondsCounter >= (secondsBeforeSunMovement1 + secondsBeforeSunMovement2)) {
+        //     doSunMovement2();
+        //     hasDoneSunMovement2 = true;
+        // }
     }
 
     private void setColor(float randomIntensity) {
@@ -94,7 +95,7 @@ public class SunMovement : MonoBehaviour
     }
 
     private void doSunMovement1() {
-        compRb.AddForce(5, 1, 5, ForceMode.Impulse);
+        compRb.AddForce(2.5f, -1, 0, ForceMode.Impulse);
     }
 
     private void doSunMovement2() {
