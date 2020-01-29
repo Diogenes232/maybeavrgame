@@ -12,7 +12,7 @@ public class SunMovement : MonoBehaviour
     private Rigidbody compRb;
     private Light compLight;
 
-    const int secondsBeforeSunMovement1 = 35;
+    const int secondsBeforeSunMovement1 = Main.secondsBeforeSunMovement1;
     const int secondsBeforeSunMovement2 = 9;
     bool hasDoneSunMovement1 = false;
     bool hasDoneSunMovement2 = false;
@@ -20,6 +20,7 @@ public class SunMovement : MonoBehaviour
     void FixedUpdate()
     {
         long currentSecondsCounter = overallStopWatch.getElapsedSeconds();
+        UnityEngine.Debug.Log("secondsBeforeSunMovement1: " + secondsBeforeSunMovement1);
         if (currentSecondsCounter < secondsBeforeSunMovement1) {
             return;
         }
@@ -41,7 +42,7 @@ public class SunMovement : MonoBehaviour
         if (currentSecondsCounter < (secondsBeforeSunMovement1 + secondsBeforeSunMovement2 + 3)) {
             // start .. until starting movement2
             randomIntensity = randomFloat(0.0f, 1.0f);
-        } else if (currentSecondsCounter > (secondsBeforeSunMovement1 + secondsBeforeSunMovement2 + 13)) {
+        } else if (currentSecondsCounter > (secondsBeforeSunMovement1 + secondsBeforeSunMovement2 + 15)) {
             // end phase of movement2
             randomIntensity = randomFloat(0.0f, 0.3f);
         } else {
@@ -101,8 +102,7 @@ public class SunMovement : MonoBehaviour
         compRb.AddForce(-8, -2.52f, -7, ForceMode.Impulse);
     }
     
-    void Start()
-    {
+    void Start() {
         compRb = GetComponent<Rigidbody>();
         compLight = GetComponent<Light>();
     }

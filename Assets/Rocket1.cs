@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RocketToTheStars : MonoBehaviour
+public class Rocket1 : MonoBehaviour
 {
     MyStopWatch myStopWatch = new MyStopWatch();
     
@@ -12,15 +12,13 @@ public class RocketToTheStars : MonoBehaviour
     float speed_x = 2f;
     const float speedAccelerator = 1.05f;
 
-    const int rocket_secondsToLiftoff = 31;
-
     void FixedUpdate()
     {
         long currentSecondsCounter = myStopWatch.getElapsedSeconds();
 
         adaptCountdownField(currentSecondsCounter);
 
-        if (currentSecondsCounter < rocket_secondsToLiftoff) {
+        if (currentSecondsCounter < Main.secondsBeforeRocket1Liftoff) {
             return;
         }
 
@@ -29,7 +27,7 @@ public class RocketToTheStars : MonoBehaviour
     }
 
     private void adaptCountdownField(long currentSecondsCounter) {
-        long count = (rocket_secondsToLiftoff - currentSecondsCounter);
+        long count = (Main.secondsBeforeRocket1Liftoff - currentSecondsCounter);
         if (count < 1) {
             count = 0;
         }
@@ -50,8 +48,6 @@ public class RocketToTheStars : MonoBehaviour
         speed_x *= speedAccelerator;
     }
     
-    void Start()
-    {
-    }
+    void Start() {}
 
 }

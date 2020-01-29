@@ -27,8 +27,7 @@ public class MoveBoy2 : MonoBehaviour
     float zLowerStopPosition = -2.7f;
     float zUpperStopPosition = 2.0f;
 
-    public virtual void Update()
-    {
+    void FixedUpdate() {
         if (myStopWatch.getElapsedSeconds() < secondsBeforeStarting) {
             return;
         }

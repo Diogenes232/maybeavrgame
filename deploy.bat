@@ -1,3 +1,3 @@
 timeout 30
-adb uninstall com.Diogns.maybeavrgame
-adb install maybeavrgame.apk
+adb uninstall com.Diogns.thereisnosunb
+adb install thereisnosunb.apk

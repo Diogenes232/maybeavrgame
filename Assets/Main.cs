@@ -4,13 +4,16 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Main : MonoBehaviour
-{
-    MyStopWatch myStopWatch;
+public class Main : MonoBehaviour {
+
+    public const int secondsBeforeRedPlanetMovement = 20;
+    public const int secondsBeforeSunMovement1 = secondsBeforeRedPlanetMovement + 28;
+
+    public const int secondsBeforeRocket1Liftoff = 31;
+
+    MyStopWatch myStopWatch = new MyStopWatch();
     
-    void Start()
-    {
-        myStopWatch = new MyStopWatch();
+    void Start() {
     }
 
     void FixedUpdate()
