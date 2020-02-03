@@ -14,10 +14,10 @@ public class MoveBoy : MonoBehaviour
 
     // speed
     const int secondsBeforeStarting = 1;
-    const float initialSpeed_x_z = 2.7f;
+    const float initialSpeed_x_z = 2.0f;
     const float maxSpeed_x_z = 60.0f;
     static float speed_x_z;
-    static float speedAcceleratorFactor = 1.16f;
+    static float speedAcceleratorFactor = 1.2f;
     static bool speed_x_z_accelerate = true;
 
     // stop points

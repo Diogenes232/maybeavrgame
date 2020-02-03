@@ -1,13 +1,13 @@
-functionality to add:
+functionality that might be addable:
 - bouncing planets
 - shoot a laser
 - the force
-- black hole with anormous gravity
+- black hole with enormous gravity
 
 naming ideas:
 - precious grounds
 - there is no sun b
-- better shoot at heavenly bodies that move towards you going to destroy your sun because otherwise you and everyone you love will die
+- better shoot at heavenly bodies that move towards you because they are going to destroy your sun and then everyone you love will die
 
 timeline:
 - falling boxes - watch out!

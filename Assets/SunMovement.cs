@@ -99,6 +99,7 @@ public class SunMovement : MonoBehaviour
     }
 
     private void doSunMovement2() {
+        // compRb.AddForce(4, 1.26f, 3.5f, ForceMode.Impulse);
         compRb.AddForce(-8, -2.52f, -7, ForceMode.Impulse);
     }
     

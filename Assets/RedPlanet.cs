@@ -16,14 +16,12 @@ public class RedPlanet : MonoBehaviour {
     void FixedUpdate()
     {
         long currentSecondsCounter = overallStopWatch.getElapsedSeconds();
-        if (currentSecondsCounter < Main.secondsBeforeRedPlanetMovement) {
+        if (hasDonePlanetMovement || currentSecondsCounter < Main.secondsBeforeRedPlanetMovement) {
             return;
         }
         
-        if (hasDonePlanetMovement == false) {
-            doPlanetMovement();
-            hasDonePlanetMovement = true;
-        }
+        doPlanetMovement();
+        hasDonePlanetMovement = true;
     }
 
     private void doPlanetMovement() {
@@ -33,6 +31,8 @@ public class RedPlanet : MonoBehaviour {
     void Start() {
         compRb = GetComponent<Rigidbody>();
         compLight = GetComponent<Light>();
+
+        compRb.AddTorque(1.0f, 0.3f, -1.0f, ForceMode.Impulse);
     }
 
 }
