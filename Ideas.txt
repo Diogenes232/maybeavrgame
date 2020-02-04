@@ -1,4 +1,8 @@
 functionality that might be addable:
+- sun C
+- second perspective
+- kids instead of bizarre spheres
+won't do:
 - bouncing planets
 - shoot a laser
 - the force

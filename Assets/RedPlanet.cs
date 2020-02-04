@@ -21,18 +21,18 @@ public class RedPlanet : MonoBehaviour {
         }
         
         doPlanetMovement();
-        hasDonePlanetMovement = true;
     }
 
     private void doPlanetMovement() {
         compRb.AddForce(2.5f, -1, 0, ForceMode.Impulse);
+        hasDonePlanetMovement = true;
     }
     
     void Start() {
         compRb = GetComponent<Rigidbody>();
         compLight = GetComponent<Light>();
 
-        compRb.AddTorque(1.0f, 0.3f, -1.0f, ForceMode.Impulse);
+        //compRb.AddTorque(3.0f, 1.0f, -2.0f, ForceMode.Impulse);
     }
 
 }

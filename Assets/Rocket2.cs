@@ -4,16 +4,16 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Rocket1 : MonoBehaviour
+public class Rocket2 : MonoBehaviour
 {
     MyStopWatch myStopWatch = new MyStopWatch();
     
     float speed_y = 2 / 3;
     float speed_x = -2.0f;
-    float speed_z = 0.12f;
+    float speed_z = 0.06f;
     const float speedAccelerator = 1.05f;
 
-    float rotate_y_beforeLiftoff = -20.0f;
+    float rotate_y_beforeLiftoff = -12.0f;
     const int rotate_timeoutBeforeLiftoff = 1;
     bool wasRocketRotatedBeforeLiftoff = false;
 
@@ -22,10 +22,10 @@ public class Rocket1 : MonoBehaviour
         long currentSecondsCounter = myStopWatch.getElapsedSeconds();
 
         adaptCountdownField(currentSecondsCounter);
-
+        
         rotateRocket(currentSecondsCounter);
 
-        if (currentSecondsCounter < Main.secondsBeforeRocket1Liftoff) {
+        if (currentSecondsCounter < Main.secondsBeforeRocket2Liftoff) {
             return;
         }
 
@@ -34,7 +34,7 @@ public class Rocket1 : MonoBehaviour
     }
 
     private void rotateRocket(long currentSecondsCounter) {
-        if (wasRocketRotatedBeforeLiftoff || currentSecondsCounter < Main.secondsBeforeRocket1Liftoff - rotate_timeoutBeforeLiftoff) {
+        if (wasRocketRotatedBeforeLiftoff || currentSecondsCounter < Main.secondsBeforeRocket2Liftoff - rotate_timeoutBeforeLiftoff) {
             return;
         }
         // once
@@ -44,30 +44,24 @@ public class Rocket1 : MonoBehaviour
     }
 
     private void adaptCountdownField(long currentSecondsCounter) {
-
-        // show countdown when other rocket was launched
-        if (currentSecondsCounter <= (Main.secondsBeforeRocket2Liftoff + 2)) {
-            return;
-        }
-
-        long count = (Main.secondsBeforeRocket1Liftoff - currentSecondsCounter);
+        long count = (Main.secondsBeforeRocket2Liftoff - currentSecondsCounter);
         if (count < 1) {
             count = 0;
         }
         //UnityEngine.Debug.Log("");
-        GameObject.Find("Liftoff counter 1")
+        GameObject.Find("Liftoff counter 2")
             .GetComponentInChildren<InputField>()
             .text = "T minus " + count + " seconds..";            
     }
 
     private void moveRocket(long currentSecondsCounter) {
-        if (currentSecondsCounter - Main.secondsBeforeRocket1Liftoff < 1) {
+        if (currentSecondsCounter - Main.secondsBeforeRocket2Liftoff < 1) {
             speed_z = 0.0f;
         }
 
         // up
         transform.Translate( (new Vector3(0, speed_y, 0)) * Time.deltaTime, Space.World );
-        // to the right / speed_z: how much to the "left"
+        // to the right
         transform.Translate( (new Vector3(speed_x, 0, speed_z)) * Time.deltaTime );
     }
 
@@ -76,6 +70,6 @@ public class Rocket1 : MonoBehaviour
         speed_x *= speedAccelerator;
     }
     
-    void Start(){}
+    void Start() {}
 
 }

@@ -1,0 +1,18 @@
+Artefakte der Engine:
+	- Integration der VR-Module in Unity
+		- Android-Kompatibilität
+	- Physikalische Eigenschaften wie Gravitation, Oberfläche, Skalierung
+		- Verhalten / Grenzen der Engine
+		- Grenzen der Hardware ("object too far away", Performanceschwankungen)
+		- Unterschied Oculus / Ausführung auf dem PC
+	- Bewegung (Bezugssysteme)
+	- Oberflächen / Materials
+	- Imports aus Asset Store
+	- C#-Einbindung / Vererbung
+
+Artefakte bzgl. Spieler*innen / Erlebende*r:
+	- Timing von Ereignissen (Scripting)
+	- Perspektive / Wahrnehmung / Ängstigung der/des Erlebenden
+	- Abstraktion von Spielelementen / Verhältnis zur Realität
+	- Aufmerksamkeitssteuerung vs. Langeweile
+	- Erzählung / Einbindung einer Story

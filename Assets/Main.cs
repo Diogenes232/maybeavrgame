@@ -7,9 +7,10 @@ using UnityEngine.UI;
 public class Main : MonoBehaviour {
 
     public const int secondsBeforeRedPlanetMovement = 0;
-    public const int secondsBeforeSunMovement1 = secondsBeforeRedPlanetMovement + 61;
+    public const int secondsBeforeSunMovement1 = secondsBeforeRedPlanetMovement + 63;
 
-    public const int secondsBeforeRocket1Liftoff = 31; // 31
+    public const int secondsBeforeRocket1Liftoff = 40;
+    public const int secondsBeforeRocket2Liftoff = 31;
 
     MyStopWatch myStopWatch = new MyStopWatch();
     
