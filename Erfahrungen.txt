@@ -2,7 +2,7 @@ Artefakte der Engine:
 	- Integration der VR-Module in Unity
 		- Android-Kompatibilität
 	- Physikalische Eigenschaften wie Gravitation, Oberfläche, Skalierung
-		- Verhalten / Grenzen der Engine
+		- Verhalten / Grenzen der Engine / Zerstören von Objekten
 		- Grenzen der Hardware ("object too far away", Performanceschwankungen)
 		- Unterschied Oculus / Ausführung auf dem PC
 	- Bewegung (Bezugssysteme)

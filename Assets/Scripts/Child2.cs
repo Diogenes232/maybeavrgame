@@ -2,15 +2,17 @@
 using System.Collections;
 using System.Diagnostics;
 
-public class MoveBoy : MonoBehaviour
+public class Child2 : MonoBehaviour
 {
     MyStopWatch myStopWatch = new MyStopWatch();
+    GameObject head;
 
     // current direction
-    public bool xMoveMinus = true;
+    public bool xMoveMinus = false;
     public bool zMoveMinus = false;
     public bool xMovePlus = false;
-    public bool zMovePlus = false;
+    public bool zMovePlus = true;
+    public int noOfAccelerations = 0;
 
     // speed
     const int secondsBeforeStarting = 1;
@@ -58,17 +60,26 @@ public class MoveBoy : MonoBehaviour
 
         if (xMoveMinus) {
             transform.Translate(speed_x_z * new Vector3(0, 0, -1) * Time.deltaTime);
+            head.transform.Translate(speed_x_z * new Vector3(0, 0, -1) * Time.deltaTime);
         } else if (zMoveMinus) {
             transform.Translate(speed_x_z * new Vector3(0, -1, 0) * Time.deltaTime);
+            head.transform.Translate(speed_x_z * new Vector3(0, -1, 0) * Time.deltaTime);
         } else if (xMovePlus) {
             transform.Translate(speed_x_z * new Vector3(0, 0, 1) * Time.deltaTime);
+            head.transform.Translate(speed_x_z * new Vector3(0, 0, 1) * Time.deltaTime);
         } else if (zMovePlus) {
             transform.Translate(speed_x_z * new Vector3(0, 1, 0) * Time.deltaTime);
+            head.transform.Translate(speed_x_z * new Vector3(0, 1, 0) * Time.deltaTime);
         }
 
     }
 
     private void changeSpeed() {
+        if (noOfAccelerations < 1) {
+            noOfAccelerations += 1;
+            return;
+        }
+
         if (speed_x_z_accelerate) {
             speed_x_z = speedAcceleratorFactor * speed_x_z;
             if (speed_x_z > maxSpeed_x_z) {
@@ -84,6 +95,7 @@ public class MoveBoy : MonoBehaviour
 
     void Start()
     {
-        speed_x_z = MoveBoy.initialSpeed_x_z;
+        speed_x_z = Child2.initialSpeed_x_z;
+        head = GameObject.Find("Childish head 2");
     }
 }

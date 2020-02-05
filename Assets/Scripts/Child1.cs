@@ -2,16 +2,16 @@
 using System.Collections;
 using System.Diagnostics;
 
-public class MoveBoy2 : MonoBehaviour
+public class Child1 : MonoBehaviour
 {
     MyStopWatch myStopWatch = new MyStopWatch();
+    GameObject head;
 
     // current direction
-    public bool xMoveMinus = false;
+    public bool xMoveMinus = true;
     public bool zMoveMinus = false;
     public bool xMovePlus = false;
-    public bool zMovePlus = true;
-    public int noOfAccelerations = 0;
+    public bool zMovePlus = false;
 
     // speed
     const int secondsBeforeStarting = 1;
@@ -34,6 +34,7 @@ public class MoveBoy2 : MonoBehaviour
 
         float position_x = transform.position.x;
         float position_z = transform.position.z;
+        // GameObject.Find("Child 1").GetComponentInChildren<Sphere>().transform.position.x;
 
         if (xMoveMinus && position_x < xLowerStopPosition) {
             // phase1
@@ -59,22 +60,21 @@ public class MoveBoy2 : MonoBehaviour
 
         if (xMoveMinus) {
             transform.Translate(speed_x_z * new Vector3(0, 0, -1) * Time.deltaTime);
+            head.transform.Translate(speed_x_z * new Vector3(0, 0, -1) * Time.deltaTime);
         } else if (zMoveMinus) {
             transform.Translate(speed_x_z * new Vector3(0, -1, 0) * Time.deltaTime);
+            head.transform.Translate(speed_x_z * new Vector3(0, -1, 0) * Time.deltaTime);
         } else if (xMovePlus) {
             transform.Translate(speed_x_z * new Vector3(0, 0, 1) * Time.deltaTime);
+            head.transform.Translate(speed_x_z * new Vector3(0, 0, 1) * Time.deltaTime);
         } else if (zMovePlus) {
             transform.Translate(speed_x_z * new Vector3(0, 1, 0) * Time.deltaTime);
+            head.transform.Translate(speed_x_z * new Vector3(0, 1, 0) * Time.deltaTime);
         }
 
     }
 
     private void changeSpeed() {
-        if (noOfAccelerations < 1) {
-            noOfAccelerations += 1;
-            return;
-        }
-
         if (speed_x_z_accelerate) {
             speed_x_z = speedAcceleratorFactor * speed_x_z;
             if (speed_x_z > maxSpeed_x_z) {
@@ -90,6 +90,7 @@ public class MoveBoy2 : MonoBehaviour
 
     void Start()
     {
-        speed_x_z = MoveBoy2.initialSpeed_x_z;
+        speed_x_z = Child1.initialSpeed_x_z;
+        head = GameObject.Find("Childish head 1");
     }
 }
