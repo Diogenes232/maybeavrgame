@@ -1,7 +1,6 @@
 functionality that might be addable:
-- sun C
 - second perspective
-- kids instead of bizarre spheres
+- aliens sporn at the end
 won't do:
 - bouncing planets
 - shoot a laser
