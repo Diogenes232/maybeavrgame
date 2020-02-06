@@ -20,10 +20,10 @@ public class AutonomousChild : MonoBehaviour
         float position_z = head.transform.position.z;
 
         // when a border is passed
-        if (randomFloat(0.0f, 1.0f) < 0.05f) {
-            giveRandomDirectionWithProbabilityOf(0.5f);
-        } else {
-            detectBorderTrespassing(position_x, position_z);
+        if (!detectBorderTrespassing(position_x, position_z)) {
+            if (randomFloat(0.0f, 1.0f) < 0.05f) {
+                giveRandomDirectionToChild();
+            }
         }
         
         float one = 1.0f;
@@ -45,21 +45,26 @@ public class AutonomousChild : MonoBehaviour
         moveBody( new Vector3(0, moveZ, moveX) );
     }
 
-    private void detectBorderTrespassing(float position_x, float position_z) {
+    private bool detectBorderTrespassing(float position_x, float position_z) {
         if (position_x > 16.0f) {
             moveXplus = false;
             moveXminus = true;
+            return true;
         } else if (position_x < 5.5f) {            
             moveXplus = true;
             moveXminus = false;
+            return true;
         }
         if (position_z > 3.5f) {
             moveZminus = true;
             moveZplus = false;
+            return true;
         } else if (position_z < -3.5f) {
             moveZminus = false;
             moveZplus = true;
+            return true;
         }
+        return false;
     }
 
     private void moveBody(Vector3 v) {
@@ -76,15 +81,15 @@ public class AutonomousChild : MonoBehaviour
         return UnityEngine.Random.Range(min, max);
     }
 
-    private void giveRandomDirectionWithProbabilityOf(float prob) {
-        if (randomFloat(0.0f, 1.0f) < prob) {
+    private void giveRandomDirectionToChild() {
+        if (randomFloat(0.0f, 1.0f) < 0.5f) {
             moveXplus = true;
             moveXminus = false;
         } else {
             moveXplus = false;
             moveXminus = true;
         }
-        if (randomFloat(0.0f, 1.0f) < prob) {
+        if (randomFloat(0.0f, 1.0f) < 0.5f) {
             moveZplus = true;
             moveZminus = false;
         } else {
@@ -104,7 +109,7 @@ public class AutonomousChild : MonoBehaviour
             }
         }
 
-        giveRandomDirectionWithProbabilityOf(0.5f);
+        giveRandomDirectionToChild();
     }
 
 }
