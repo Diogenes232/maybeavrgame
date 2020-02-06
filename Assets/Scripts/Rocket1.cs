@@ -25,7 +25,7 @@ public class Rocket1 : MonoBehaviour
 
         rotateRocket(currentSecondsCounter);
 
-        if (currentSecondsCounter < Main.secondsBeforeRocket1Liftoff) {
+        if (currentSecondsCounter < MainMain.secondsBeforeRocket1Liftoff) {
             return;
         }
 
@@ -34,7 +34,7 @@ public class Rocket1 : MonoBehaviour
     }
 
     private void rotateRocket(long currentSecondsCounter) {
-        if (wasRocketRotatedBeforeLiftoff || currentSecondsCounter < Main.secondsBeforeRocket1Liftoff - rotate_timeoutBeforeLiftoff) {
+        if (wasRocketRotatedBeforeLiftoff || currentSecondsCounter < MainMain.secondsBeforeRocket1Liftoff - rotate_timeoutBeforeLiftoff) {
             return;
         }
         // once
@@ -46,11 +46,11 @@ public class Rocket1 : MonoBehaviour
     private void adaptCountdownField(long currentSecondsCounter) {
 
         // show countdown when other rocket was launched
-        if (currentSecondsCounter <= (Main.secondsBeforeRocket2Liftoff + 2)) {
+        if (currentSecondsCounter <= (MainMain.secondsBeforeRocket2Liftoff + 2)) {
             return;
         }
 
-        long count = (Main.secondsBeforeRocket1Liftoff - currentSecondsCounter);
+        long count = (MainMain.secondsBeforeRocket1Liftoff - currentSecondsCounter);
         if (count < 1) {
             count = 0;
         }
@@ -61,7 +61,7 @@ public class Rocket1 : MonoBehaviour
     }
 
     private void moveRocket(long currentSecondsCounter) {
-        if (currentSecondsCounter - Main.secondsBeforeRocket1Liftoff < 1) {
+        if (currentSecondsCounter - MainMain.secondsBeforeRocket1Liftoff < 1) {
             speed_z = 0.0f;
         }
 

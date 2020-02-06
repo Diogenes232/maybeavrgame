@@ -4,10 +4,10 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Main : MonoBehaviour {
+public class MainMain : MonoBehaviour {
 
     public const int secondsBeforeRedPlanetMovement = 0;
-    public const int secondsBeforeSunMovement1 = secondsBeforeRedPlanetMovement + 63;
+    public const int secondsBeforeSunMovement1 = secondsBeforeRedPlanetMovement + 58;
 
     public const int secondsBeforeRocket1Liftoff = 40;
     public const int secondsBeforeRocket2Liftoff = 31;

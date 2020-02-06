@@ -12,7 +12,7 @@ public class SunA : MonoBehaviour
     private Rigidbody compRb;
     private Light compLight;
 
-    const int secondsBeforeSunMovement1 = Main.secondsBeforeSunMovement1;
+    const int secondsBeforeSunMovement1 = MainMain.secondsBeforeSunMovement1;
     const int secondsBeforeSunMovement2 = 9;
     bool hasDoneSunMovement1 = false;
     bool hasDoneSunMovement2 = false;

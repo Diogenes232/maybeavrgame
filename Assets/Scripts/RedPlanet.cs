@@ -16,7 +16,7 @@ public class RedPlanet : MonoBehaviour {
     void FixedUpdate()
     {
         long currentSecondsCounter = overallStopWatch.getElapsedSeconds();
-        if (hasDonePlanetMovement || currentSecondsCounter < Main.secondsBeforeRedPlanetMovement) {
+        if (hasDonePlanetMovement || currentSecondsCounter < MainMain.secondsBeforeRedPlanetMovement) {
             return;
         }
         
