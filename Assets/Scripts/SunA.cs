@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SunMovement : MonoBehaviour
+public class SunA : MonoBehaviour
 {
     private MyStopWatch overallStopWatch = new MyStopWatch();
     private MyStopWatch longerSunShiningStopWatch = new MyStopWatch(false);
@@ -41,7 +41,7 @@ public class SunMovement : MonoBehaviour
         if (currentSecondsCounter < (secondsBeforeSunMovement1 + secondsBeforeSunMovement2 + 3)) {
             // start .. until starting movement2
             randomIntensity = randomFloat(0.0f, 1.0f);
-        } else if (currentSecondsCounter > (secondsBeforeSunMovement1 + secondsBeforeSunMovement2 + 18)) {
+        } else if (currentSecondsCounter > (secondsBeforeSunMovement1 + secondsBeforeSunMovement2 + 20)) {
             // end phase of movement2
             randomIntensity = randomFloat(0.0f, 0.3f);
         } else {

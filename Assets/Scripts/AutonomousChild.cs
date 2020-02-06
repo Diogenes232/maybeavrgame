@@ -2,15 +2,15 @@
 using System.Collections;
 using System.Diagnostics;
 
-public class AChild : MonoBehaviour
+public class AutonomousChild : MonoBehaviour
 {
     MyStopWatch myStopWatch = new MyStopWatch();
     private Rigidbody compRb;
     GameObject head, body;
 
     // speed
-    const float minSpeed_x_z = 1.0f;
-    const float maxSpeed_x_z = 15.0f;
+    const float minSpeed_x_z = 2.0f;
+    const float maxSpeed_x_z = 20.0f;
 
     // find direction
     bool moveXplus, moveXminus, moveZplus, moveZminus;
@@ -19,23 +19,26 @@ public class AChild : MonoBehaviour
         float position_x = head.transform.position.x;
         float position_z = head.transform.position.z;
 
-        // when a border is passed        
-        detectBorderTrespassing(position_x, position_z);
-
-        float one = randomFloat(0.0f, 2.0f);
-
+        // when a border is passed
+        if (randomFloat(0.0f, 1.0f) < 0.05f) {
+            giveRandomDirectionWithProbabilityOf(0.5f);
+        } else {
+            detectBorderTrespassing(position_x, position_z);
+        }
+        
+        float one = 1.0f;
         float moveX = randomFloat(-one, one);
         float moveZ = randomFloat(-one, one);
 
         if (moveXplus) {
-            moveX = randomFloat(0.0f, one);
+            moveX = randomFloat(0.0f, one) * randomFloat(0, one);
         } else if (moveXminus) {
-            moveX = randomFloat(-one, 0.0f);
+            moveX = randomFloat(-one, 0.0f) * randomFloat(0, one);
         }
         if (moveZplus) {
-            moveZ = randomFloat(0.0f, one);
+            moveZ = randomFloat(0.0f, one) * randomFloat(0, one);
         } else if (moveZminus) {
-            moveZ = randomFloat(-one, 0.0f);
+            moveZ = randomFloat(-one, 0.0f) * randomFloat(0, one);
         }
 
         // move
@@ -73,6 +76,23 @@ public class AChild : MonoBehaviour
         return UnityEngine.Random.Range(min, max);
     }
 
+    private void giveRandomDirectionWithProbabilityOf(float prob) {
+        if (randomFloat(0.0f, 1.0f) < prob) {
+            moveXplus = true;
+            moveXminus = false;
+        } else {
+            moveXplus = false;
+            moveXminus = true;
+        }
+        if (randomFloat(0.0f, 1.0f) < prob) {
+            moveZplus = true;
+            moveZminus = false;
+        } else {
+            moveZplus = false;
+            moveZminus = true;
+        }
+    }
+
     void Start()
     {
         // find children nodes
@@ -84,21 +104,7 @@ public class AChild : MonoBehaviour
             }
         }
 
-        if (randomFloat(0.0f, 1.0f) < 0.5f) {
-            moveXplus = true;
-            moveXminus = false;
-        } else {
-            moveXplus = false;
-            moveXminus = true;
-        }
-        if (randomFloat(0.0f, 1.0f) < 0.5f) {
-            moveZplus = true;
-            moveZminus = false;
-        } else {
-            moveZplus = false;
-            moveZminus = true;
-        }
-
+        giveRandomDirectionWithProbabilityOf(0.5f);
     }
 
 }

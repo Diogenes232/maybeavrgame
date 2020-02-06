@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Diagnostics;
 
-public class Child1 : MonoBehaviour
+public class SeekingChild1 : MonoBehaviour
 {
     MyStopWatch myStopWatch = new MyStopWatch();
     GameObject head;
@@ -90,7 +90,7 @@ public class Child1 : MonoBehaviour
 
     void Start()
     {
-        speed_x_z = Child1.initialSpeed_x_z;
+        speed_x_z = SeekingChild1.initialSpeed_x_z;
         head = GameObject.Find("Childish head 1");
     }
 }
