@@ -9,7 +9,7 @@ public class AutonomousChild : MonoBehaviour
     GameObject head, body;
 
     // speed
-    const float minSpeed_x_z = 2.0f;
+    const float minSpeed_x_z = 1.6f;
     const float maxSpeed_x_z = 15.0f;
 
     // find direction
@@ -21,7 +21,7 @@ public class AutonomousChild : MonoBehaviour
 
         // when a border is passed
         if (!detectBorderTrespassing(position_x, position_z)) {
-            if (randomFloat(0.0f, 1.0f) < 0.025f) {
+            if (randomFloat(0.0f, 1.0f) < 0.015f) {
                 giveRandomDirectionToChild();
             }
         }
