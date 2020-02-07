@@ -1,6 +1,7 @@
 functionality that might be addable:
 - second perspective
 - aliens sporn at the end
+- destroy elements when too far away
 won't do:
 - bouncing planets
 - shoot a laser
