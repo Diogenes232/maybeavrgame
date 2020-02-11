@@ -68,7 +68,14 @@ public class AutonomousChild : MonoBehaviour
     }
 
     private void moveBody(Vector3 v) {
-        float speed_x_z = getRandomizedSpeed();
+        float speed_x_z;
+        if (MainMain.isDownTempoPhase()) {
+            speed_x_z = MainMain.calcDownTempo();
+        }
+        else {
+            speed_x_z = getRandomizedSpeed();
+        }
+        
         head.transform.Translate(speed_x_z * v  * Time.deltaTime);
         body.transform.Translate(speed_x_z * v  * Time.deltaTime);
     }

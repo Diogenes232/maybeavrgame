@@ -16,8 +16,8 @@ public class SeekingChild2 : MonoBehaviour
 
     // speed
     const int secondsBeforeStarting = 1;
-    const float initialSpeed_x_z = 2.0f;
-    const float maxSpeed_x_z = 50.0f;
+    static float initialSpeed_x_z = 2.0f;
+    static float maxSpeed_x_z = 50.0f;
     static float speed_x_z;
     static float speedAcceleratorFactor = 1.2f;
     static bool speed_x_z_accelerate = true;
@@ -75,20 +75,25 @@ public class SeekingChild2 : MonoBehaviour
     }
 
     private void changeSpeed() {
-        if (noOfAccelerations < 1) {
-            noOfAccelerations += 1;
-            return;
+        if (MainMain.isDownTempoPhase()) {
+            speed_x_z = MainMain.calcDownTempo();
         }
-
-        if (speed_x_z_accelerate) {
-            speed_x_z = speedAcceleratorFactor * speed_x_z;
-            if (speed_x_z > maxSpeed_x_z) {
-                speed_x_z_accelerate = false;
+        else {
+            if (noOfAccelerations < 1) {
+                noOfAccelerations += 1;
+                return;
             }
-        } else {
-            speed_x_z = speed_x_z / speedAcceleratorFactor;
-            if (speed_x_z <= initialSpeed_x_z) {
-                speed_x_z_accelerate = true;
+
+            if (speed_x_z_accelerate) {
+                speed_x_z = speedAcceleratorFactor * speed_x_z;
+                if (speed_x_z > maxSpeed_x_z) {
+                    speed_x_z_accelerate = false;
+                }
+            } else {
+                speed_x_z = speed_x_z / speedAcceleratorFactor;
+                if (speed_x_z <= initialSpeed_x_z) {
+                    speed_x_z_accelerate = true;
+                }
             }
         }
     }

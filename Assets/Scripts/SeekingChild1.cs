@@ -15,8 +15,8 @@ public class SeekingChild1 : MonoBehaviour
 
     // speed
     const int secondsBeforeStarting = 1;
-    const float initialSpeed_x_z = 2.0f;
-    const float maxSpeed_x_z = 50.0f;
+    static float initialSpeed_x_z = 2.0f;
+    static float maxSpeed_x_z = 50.0f;
     static float speed_x_z;
     static float speedAcceleratorFactor = 1.2f;
     static bool speed_x_z_accelerate = true;
@@ -34,7 +34,6 @@ public class SeekingChild1 : MonoBehaviour
 
         float position_x = transform.position.x;
         float position_z = transform.position.z;
-        // GameObject.Find("Child 1").GetComponentInChildren<Sphere>().transform.position.x;
 
         if (xMoveMinus && position_x < xLowerStopPosition) {
             // phase1
@@ -56,7 +55,7 @@ public class SeekingChild1 : MonoBehaviour
             zMovePlus = false;
             xMoveMinus = true;
             changeSpeed();
-        } 
+        }
 
         if (xMoveMinus) {
             transform.Translate(speed_x_z * new Vector3(0, 0, -1) * Time.deltaTime);
@@ -71,19 +70,23 @@ public class SeekingChild1 : MonoBehaviour
             transform.Translate(speed_x_z * new Vector3(0, 1, 0) * Time.deltaTime);
             head.transform.Translate(speed_x_z * new Vector3(0, 1, 0) * Time.deltaTime);
         }
-
     }
 
     private void changeSpeed() {
-        if (speed_x_z_accelerate) {
-            speed_x_z = speedAcceleratorFactor * speed_x_z;
-            if (speed_x_z > maxSpeed_x_z) {
-                speed_x_z_accelerate = false;
-            }
-        } else {
-            speed_x_z = speed_x_z / speedAcceleratorFactor;
-            if (speed_x_z <= initialSpeed_x_z) {
-                speed_x_z_accelerate = true;
+        if (MainMain.isDownTempoPhase()) {
+            speed_x_z = MainMain.calcDownTempo();
+        }
+        else {
+            if (speed_x_z_accelerate) {
+                speed_x_z = speedAcceleratorFactor * speed_x_z;
+                if (speed_x_z > maxSpeed_x_z) {
+                    speed_x_z_accelerate = false;
+                }
+            } else {
+                speed_x_z = speed_x_z / speedAcceleratorFactor;
+                if (speed_x_z <= initialSpeed_x_z) {
+                    speed_x_z_accelerate = true;
+                }
             }
         }
     }
@@ -93,4 +96,5 @@ public class SeekingChild1 : MonoBehaviour
         speed_x_z = SeekingChild1.initialSpeed_x_z;
         head = GameObject.Find("Childish head 1");
     }
+    
 }

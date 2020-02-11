@@ -210,7 +210,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 160220151}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 49.4, y: 102.4, z: -2}
+  m_LocalPosition: {x: 23.73, y: 43.47, z: 12.41}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
@@ -228,7 +228,7 @@ Light:
   m_Type: 2
   m_Color: {r: 0.9039779, g: 0.9245283, b: 0.6061766, a: 1}
   m_Intensity: 3
-  m_Range: 150
+  m_Range: 70
   m_SpotAngle: 179
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -407,15 +407,15 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "There is no Sun B\r\nA   D Y I N G   H O P E\r\nA few melodramatic words
-    to begin with so that you know that the following story is very, very enormous:\r\n\r\nMadmen
-    are ruling the world while THREATS are approaching that nobody is prepared FOR.
-    Kids are playing in the park having no idea what might be coming from the sky.\r\nBut
+  m_Text: "- There is no Sun B -\r\nA   D Y I N G   H O P E\r\nA few melodramatic
+    words to begin with so that you know that the following story is very, very enormous:\r\n\r\nMadmen
+    are ruling the world while THREATS are approaching that nobody is prepared for.
+    Kids are playing IN the park having no idea what might BE coming from the sky.\r\nBut
     you know it better.\r\n\r\nYou see the big RED PLANET spinning and coming towards
     our PRECIOUS EARTH. Facing THE END OF OUR WORLD AND EVERYONE YOU LOVE we need
-    to fight the impending threat. But bringing weapons into the game often has UNFORESEEABLE
-    CONSEQUENCES. Can we as a species defend ourselves? Our children?\r\nBetter start
-    by looking up NOW..."
+    to fight the impending threat.\r\nBut bringing weapons into the game often has
+    UNFORESEEABLE CONSEQUENCES. Can we as a species defend ourselves? Our children?\r\nBetter
+    start by looking up NOW..."
 --- !u!222 &461688914
 CanvasRenderer:
   m_ObjectHideFlags: 0

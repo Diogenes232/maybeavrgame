@@ -11,10 +11,13 @@ public class MainMain : MonoBehaviour {
 
     public const int secondsBeforeRocket1Liftoff = 40;
     public const int secondsBeforeRocket2Liftoff = 31;
+    
+    private const int secondsBeforeKidsNegativeAcceleration = 130;
+    private const float secondsBeforeKidsAreCooledDown = 10.0f;
 
     private long fun = 50;
 
-    MyStopWatch myStopWatch = new MyStopWatch();
+    static MyStopWatch myStopWatch = new MyStopWatch();
     
     void Start() {
         enableVisitorCameraIfProd();
@@ -23,6 +26,21 @@ public class MainMain : MonoBehaviour {
     void FixedUpdate()
     {
         updateHud(myStopWatch.getElapsedSeconds());
+    }
+
+    /* Check if ending downtempo time has arrived. */
+    public static bool isDownTempoPhase() {
+        return myStopWatch.execeedesSeconds(secondsBeforeKidsNegativeAcceleration);
+    }
+
+    public static float calcDownTempo() {
+        long secondsOver = (myStopWatch.getElapsedSeconds() - secondsBeforeKidsNegativeAcceleration);
+
+        float speed = 4 * (1 - (secondsOver / secondsBeforeKidsAreCooledDown));
+        if (speed < 0) {
+            speed = 0;
+        }
+        return speed;
     }
 
     private void updateHud(long currentSecondsCounter) {
@@ -54,10 +72,12 @@ public class MainMain : MonoBehaviour {
     }
 
     public static void enableVisitorCameraIfProd() {
-        var cameras = Resources.FindObjectsOfTypeAll<Camera>();
-        UnityEngine.Debug.Log(cameras.Length + " cameras overall");
+        bool isEditor = Application.isEditor;
 
-        if (!Application.isEditor) {
+        var cameras = Resources.FindObjectsOfTypeAll<Camera>();
+        UnityEngine.Debug.Log("cameras overall: " + cameras.Length + " / isEditor: " + isEditor);
+
+        if (!isEditor) {
             foreach (var cam in cameras) {
                 cam.gameObject.SetActive( (cam.name == "Visitor Camera" ? true : false) );
             }
