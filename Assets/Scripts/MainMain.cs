@@ -6,18 +6,25 @@ using UnityEngine.UI;
 
 public class MainMain : MonoBehaviour {
 
+    // early phase
     public const int secondsBeforeRedPlanetMovement = 0;
     public const int secondsBeforeSunMovement1 = secondsBeforeRedPlanetMovement + 59;
 
+    // in between
     public const int secondsBeforeRocket1Liftoff = 40;
     public const int secondsBeforeRocket2Liftoff = 31;
     
+    // first ending phase
     private const int secondsBeforeKidsNegativeAcceleration = 130;
     private const float secondsBeforeKidsAreCooledDown = 10.0f;
+    
+    // ending ending phase
+    //public const int secondsBeforeAlienation = secondsBeforeKidsNegativeAcceleration + (int)secondsBeforeKidsAreCooledDown;
+    public const int secondsBeforeAlienation = 2;
 
-    private long fun = 50;
+    private long fun = 70;
 
-    static MyStopWatch myStopWatch = new MyStopWatch();
+    public static MyStopWatch myStopWatch = new MyStopWatch();
     
     void Start() {
         enableVisitorCameraIfProd();
@@ -50,7 +57,7 @@ public class MainMain : MonoBehaviour {
         }
         else {
             if (currentSecondsCounter % 5 == 0) {
-                fun = 50 + currentSecondsCounter;
+                fun = 70 + currentSecondsCounter;
             }
         }
         renderFun(fun);
@@ -64,7 +71,7 @@ public class MainMain : MonoBehaviour {
     }
 
     private void renderFun(long fun) {
-        if (fun < 101 && fun > 6) {
+        if (fun < 101 && fun > 0) {
             GameObject.Find("Fun")
                 .GetComponentInChildren<InputField>()
                 .text = "Fun: " + fun + "%";
