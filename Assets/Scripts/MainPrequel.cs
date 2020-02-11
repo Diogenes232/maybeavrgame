@@ -10,6 +10,8 @@ public class MainPrequel : MonoBehaviour {
     {
         Rigidbody compRb = GetComponent<Rigidbody>();
         compRb.AddForce(0, 0.25f, 0.25f, ForceMode.Impulse);
+
+        MainMain.enableVisitorCameraIfProd();
     }
 
     void FixedUpdate() {

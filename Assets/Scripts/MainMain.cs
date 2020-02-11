@@ -17,6 +17,7 @@ public class MainMain : MonoBehaviour {
     MyStopWatch myStopWatch = new MyStopWatch();
     
     void Start() {
+        enableVisitorCameraIfProd();
     }
 
     void FixedUpdate()
@@ -49,6 +50,17 @@ public class MainMain : MonoBehaviour {
             GameObject.Find("Fun")
                 .GetComponentInChildren<InputField>()
                 .text = "Fun: " + fun + "%";
+        }
+    }
+
+    public static void enableVisitorCameraIfProd() {
+        var cameras = Resources.FindObjectsOfTypeAll<Camera>();
+        UnityEngine.Debug.Log(cameras.Length + " cameras overall");
+
+        if (!Application.isEditor) {
+            foreach (var cam in cameras) {
+                cam.gameObject.SetActive( (cam.name == "Visitor Camera" ? true : false) );
+            }
         }
     }
 
