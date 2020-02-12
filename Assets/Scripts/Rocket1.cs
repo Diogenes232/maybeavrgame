@@ -17,8 +17,8 @@ public class Rocket1 : MonoBehaviour
     const int rotate_timeoutBeforeLiftoff = 1;
     bool wasRocketRotatedBeforeLiftoff = false;
 
-    void FixedUpdate()
-    {
+    void FixedUpdate() {
+
         long currentSecondsCounter = myStopWatch.getElapsedSeconds();
 
         adaptCountdownField(currentSecondsCounter);
@@ -31,6 +31,8 @@ public class Rocket1 : MonoBehaviour
 
         moveRocket(currentSecondsCounter);
         accelerateRocket();
+
+        checkIfRocketIsToDestroy();
     }
 
     private void rotateRocket(long currentSecondsCounter) {
@@ -74,6 +76,12 @@ public class Rocket1 : MonoBehaviour
     private void accelerateRocket() {
         speed_y *= speedAccelerator;
         speed_x *= speedAccelerator;
+    }
+
+    private void checkIfRocketIsToDestroy() {
+        if (transform.position.x + transform.position.y > 20000.0f) {
+            Destroy(transform.gameObject, 1);
+        }
     }
     
     void Start(){}

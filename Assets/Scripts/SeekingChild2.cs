@@ -28,8 +28,10 @@ public class SeekingChild2 : MonoBehaviour
     float zLowerStopPosition = -2.7f;
     float zUpperStopPosition = 2.0f;
 
-    void FixedUpdate() {
-        if (myStopWatch.getElapsedSeconds() < secondsBeforeStarting) {
+    void FixedUpdate() {   
+
+        if (head == null || myStopWatch.getElapsedSeconds() < secondsBeforeStarting) {
+            // gameObject was destroyed or too soon
             return;
         }
 

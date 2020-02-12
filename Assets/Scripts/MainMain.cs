@@ -6,6 +6,14 @@ using UnityEngine.UI;
 
 public class MainMain : MonoBehaviour {
 
+    public static MyStopWatch myStopWatch = new MyStopWatch();
+    private static List<GameObject> activeChildren = new List<GameObject>();
+    private long fun = 70;
+
+    // camera movement
+    private static GameObject visitorCamera;
+    private bool isInAlienationCameraMovement = false;
+
     // early phase
     public const int secondsBeforeRedPlanetMovement = 0;
     public const int secondsBeforeSunMovement1 = secondsBeforeRedPlanetMovement + 59;
@@ -19,25 +27,30 @@ public class MainMain : MonoBehaviour {
     private const float secondsBeforeKidsAreCooledDown = 10.0f;
     
     // ending ending phase
-    //public const int secondsBeforeAlienation = secondsBeforeKidsNegativeAcceleration + (int)secondsBeforeKidsAreCooledDown;
-    public const int secondsBeforeAlienation = 2;
-
-    private long fun = 70;
-
-    public static MyStopWatch myStopWatch = new MyStopWatch();
+    //public const int secondsBeforeAlienation = secondsBeforeKidsNegativeAcceleration + (((int)(secondsBeforeKidsAreCooledDown * 1.00f)) );
+    public const int secondsBeforeAlienation = 10;
+    public const int secondsOfChildAlienation = 2;
+    public static int noOfChildrenInAlienation = 0;
     
     void Start() {
         enableVisitorCameraIfProd();
+        updateActiveChildren();
     }
 
     void FixedUpdate()
     {
         updateHud(myStopWatch.getElapsedSeconds());
+        updateActiveChildren();
+        checkForAlienationCameraMovement();
     }
 
     /* Check if ending downtempo time has arrived. */
     public static bool isDownTempoPhase() {
         return myStopWatch.execeedesSeconds(secondsBeforeKidsNegativeAcceleration);
+    }
+
+    public static bool isAlienationPhase() {
+        return myStopWatch.execeedesSeconds(secondsBeforeAlienation);
     }
 
     public static float calcDownTempo() {
@@ -48,6 +61,14 @@ public class MainMain : MonoBehaviour {
             speed = 0;
         }
         return speed;
+    }
+
+    private void checkForAlienationCameraMovement() {
+        if (activeChildren.Count < 3 && !isInAlienationCameraMovement) {
+            UnityEngine.Debug.Log("camera movement starting now..");
+            visitorCamera.transform.Translate(new Vector3(0, 3, 0) * Time.deltaTime, Space.World);
+            isInAlienationCameraMovement = true;
+        }
     }
 
     private void updateHud(long currentSecondsCounter) {
@@ -86,7 +107,26 @@ public class MainMain : MonoBehaviour {
 
         if (!isEditor) {
             foreach (var cam in cameras) {
-                cam.gameObject.SetActive( (cam.name == "Visitor Camera" ? true : false) );
+                if (cam.name == "Visitor Camera") {
+                    cam.gameObject.SetActive(true);
+                    visitorCamera = cam.gameObject;
+                }
+                else {
+                    cam.gameObject.SetActive(false);
+                }
+                
+            }
+        }
+    }
+
+    private void updateActiveChildren() {
+        var gameObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+        activeChildren.Clear();
+        foreach (var go in gameObjects) {
+            if (go.name.Contains(" child ")) {
+                if (go.activeSelf) {
+                    activeChildren.Add(go);
+                }
             }
         }
     }

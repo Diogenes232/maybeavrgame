@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Diagnostics;
+using System;
 
 public class AutonomousChild : MonoBehaviour
 {
     MyStopWatch myStopWatch = new MyStopWatch();
+    MyStopWatch alienationStopWatch;
     private Rigidbody compRb;
     GameObject head, body;
 
@@ -16,12 +18,18 @@ public class AutonomousChild : MonoBehaviour
     bool moveXplus, moveXminus, moveZplus, moveZminus;
 
     void FixedUpdate() {
+
+        if (head == null || body == null) {
+            // gameObject was destroyed
+            return ;
+        }
+
         float position_x = head.transform.position.x;
         float position_z = head.transform.position.z;
 
         // when a border is passed
         if (!detectBorderTrespassing(position_x, position_z)) {
-            if (randomFloat(0.0f, 1.0f) < 0.015f) {
+            if (randomChanceOccurs(0.015f)) {
                 giveRandomDirectionToChild();
             }
         }
@@ -88,15 +96,19 @@ public class AutonomousChild : MonoBehaviour
         return UnityEngine.Random.Range(min, max);
     }
 
+    private bool randomChanceOccurs(float chance) {
+        return (randomFloat(0.0f, 1.0f) <= chance);
+    }
+
     private void giveRandomDirectionToChild() {
-        if (randomFloat(0.0f, 1.0f) < 0.5f) {
+        if (randomChanceOccurs(0.5f)) {
             moveXplus = true;
             moveXminus = false;
         } else {
             moveXplus = false;
             moveXminus = true;
         }
-        if (randomFloat(0.0f, 1.0f) < 0.5f) {
+        if (randomChanceOccurs(0.5f)) {
             moveZplus = true;
             moveZminus = false;
         } else {
@@ -108,11 +120,11 @@ public class AutonomousChild : MonoBehaviour
     void Start()
     {
         // find children nodes
-        foreach (Transform eachChild in transform) {
-            if (eachChild.name == "Head") {
-                head = eachChild.gameObject;
-            } else if (eachChild.name == "Body") {
-                body = eachChild.gameObject;
+        foreach (Transform child in transform) {
+            if (child.name == "Head" || child.name.Contains("head")) {
+                head = child.gameObject;
+            } else if (child.name == "Body" || child.name.Contains("body")) {
+                body = child.gameObject;
             }
         }
 
