@@ -4,12 +4,12 @@ using UnityEngine.SceneManagement;
 public class MainPrequel : MonoBehaviour {
 
     MyStopWatch myStopWatch = new MyStopWatch();
-    const int secondsInPrequelScene = 42;
+    const int secondsInPrequelScene = 38;
 
     void Start()
     {
         Rigidbody compRb = GetComponent<Rigidbody>();
-        compRb.AddForce(0, 0.25f, 0.25f, ForceMode.Impulse);
+        compRb.AddForce(0, 0.27f, 0.27f, ForceMode.Impulse);
 
         MainMain.enableVisitorCameraIfProd();
     }
@@ -19,7 +19,6 @@ public class MainPrequel : MonoBehaviour {
             myStopWatch.stop();
             SceneManager.LoadScene("playground", LoadSceneMode.Single);
         }
-        
     }
 
 }
