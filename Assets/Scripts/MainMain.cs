@@ -30,13 +30,13 @@ public class MainMain : MonoBehaviour {
     
     void Start() {
         enableVisitorCameraIfProd();
-        updateActiveChildren();
+        updateChildrenList();
     }
 
     void FixedUpdate()
     {
         updateHud(myStopWatch.getElapsedSeconds());
-        updateActiveChildren();
+        updateChildrenList();
     }
 
     public static bool isDownTempoPhase() {
@@ -106,21 +106,24 @@ public class MainMain : MonoBehaviour {
                 else {
                     cam.gameObject.SetActive(false);
                 }
-                
             }
         }
     }
 
-    private void updateActiveChildren() {
+    public static List<GameObject> getGameObjectsContaining(String name) {
+        List<GameObject> objects = new List<GameObject>();
         var gameObjects = Resources.FindObjectsOfTypeAll<GameObject>();
-        activeChildren.Clear();
         foreach (var go in gameObjects) {
-            if (go.name.Contains(" child ")) {
-                if (go.activeSelf) {
-                    activeChildren.Add(go);
-                }
+            if (go.name.Contains(name)) {
+                objects.Add(go);
             }
         }
+        return objects;
+    }
+
+    private void updateChildrenList() {
+        activeChildren.Clear();
+        activeChildren = getGameObjectsContaining(" child ");
     }
 
 }

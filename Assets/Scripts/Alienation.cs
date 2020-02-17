@@ -9,9 +9,10 @@ public class Alienation : MonoBehaviour {
     List<Transform> aliens = new List<Transform>();
     bool aliensComing = false;
     bool aliensHere = false;
+    bool aliensWereHere = false;
     float rotationFactor = 1.0f;
     bool wasCameraRotatedHalf = false;
-    bool wasCameraRotatedOneFullRotation = false;
+    int fullCameraRotations = 0;
     
     float firstSpeedX;
     float firstSpeedY;
@@ -24,12 +25,12 @@ public class Alienation : MonoBehaviour {
 
     void FixedUpdate() {
         if (MainMain.myStopWatch.execeedesSeconds(MainMain.secondsBeforeAlienation)) {
-            if (!aliensComing && !aliensHere) {
-                activateAliens();
+            if (!aliensComing && !aliensHere && !aliensWereHere) {
+                activateAliens(true);
             }
         }
 
-        if (aliensComing && !aliensHere) {
+        if (aliensComing && !aliensHere && !aliensWereHere) {
             moveAliensDownwards();
         }
 
@@ -39,16 +40,23 @@ public class Alienation : MonoBehaviour {
     private void checkForFinalAlienationCameraMovement() {
         if (MainMain.isAlienationCameraMovementPhase()) {
             GameObject visitorCamera = GameObject.Find("Visitor Camera Holder");
+            
+            if (fullCameraRotations >= 2) {
+                endGame();
+            }
 
             // ROTATION
-            float rotationStateY = visitorCamera.transform.rotation.y;
-            if (rotationStateY > 0.9f) {
+            float rotationStateY = Math.Abs(visitorCamera.transform.rotation.y);
+            if (rotationStateY > 0.95f) {
                 wasCameraRotatedHalf = true;
                 rotateCamera(visitorCamera, rotationFactor);
             }
-            else if ( wasCameraRotatedHalf && rotationStateY > 0.0f && rotationStateY < 0.1 ) {
-                wasCameraRotatedOneFullRotation = true;
-                rotationFactor = 2.0f;
+            else if (wasCameraRotatedHalf && rotationStateY > 0.0f && rotationStateY < 0.2) {
+                fullCameraRotations = fullCameraRotations + 1;
+                wasCameraRotatedHalf = false;
+                UnityEngine.Debug.Log("fullCameraRotations: " + fullCameraRotations);
+
+                //rotationFactor = 1.0f;
                 rotateCamera(visitorCamera, rotationFactor);
             }
             else {
@@ -66,7 +74,7 @@ public class Alienation : MonoBehaviour {
             float speedY = (differenceToTargetY + 0.5f) / 10.0f;
             speedY = checkLowerSpeedBounds(differenceToTargetY, speedY);
 
-            if (wasCameraRotatedOneFullRotation) {
+            if (fullCameraRotations > 0 || wasCameraRotatedHalf) {
                 speedY = 10.0f;
                 moveAliensHorizontallyWithSpeed(speedY);
             }
@@ -74,6 +82,18 @@ public class Alienation : MonoBehaviour {
             //UnityEngine.Debug.Log("speedX: " + speedX + "  speedY: " + speedY);
             visitorCamera.transform.Translate(new Vector3(speedX, speedY, 0) * Time.deltaTime, Space.World);
         }
+    }
+
+    private void endGame() {
+        activateAliens(false);
+                
+        List<GameObject> gos = MainMain.getGameObjectsContaining("The end canvas");
+        foreach (var go in gos) {
+            go.SetActive(true);
+        }
+        aliensWereHere = true;
+
+        rotationFactor = 0.3f;
     }
 
     private void rotateCamera(GameObject visitorCamera) {
@@ -91,10 +111,10 @@ public class Alienation : MonoBehaviour {
         return speedTowardsTarget;
     }
 
-    private void activateAliens() {
+    private void activateAliens(bool activate) {
         UnityEngine.Debug.Log("Starting the alienation..");
         foreach (Transform alien in aliens) {
-            alien.gameObject.SetActive(true);
+            alien.gameObject.SetActive(activate);
         }
         aliensComing = true;
     }

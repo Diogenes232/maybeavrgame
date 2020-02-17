@@ -43,6 +43,9 @@ public class Rocket1 : MonoBehaviour
         Vector3 rot = new Vector3(0.0f, rotate_y_beforeLiftoff, 0.0f);
         transform.Rotate(rot * Time.deltaTime * 20, Space.World);
         wasRocketRotatedBeforeLiftoff = true;
+
+        AudioSource liftoffSound = GetComponent<AudioSource>();
+        liftoffSound.Play();
     }
 
     private void adaptCountdownField(long currentSecondsCounter) {

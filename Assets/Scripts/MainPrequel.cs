@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class MainPrequel : MonoBehaviour {
 
     MyStopWatch myStopWatch = new MyStopWatch();
-    const int secondsInPrequelScene = 38;
+    const int secondsInPrequelScene = 36;
 
     void Start()
     {
