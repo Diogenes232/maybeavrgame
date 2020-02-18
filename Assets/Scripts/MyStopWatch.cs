@@ -36,6 +36,11 @@ public class MyStopWatch
         stopWatch.Stop();
     }
 
+    public void reset() {
+        stopWatch.Reset();
+        stopWatch.Start();
+    }
+
     public bool execeedesMilliseconds(long milliseconds) {
         if (getElapsedMilliseconds() >= milliseconds) {
             return true;
