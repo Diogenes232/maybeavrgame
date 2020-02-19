@@ -17,6 +17,7 @@ public class Rocket2 : MonoBehaviour
     const int rotate_timeoutBeforeLiftoff = 1;
     bool wasRocketRotatedBeforeLiftoff = false;
     bool wasRocketDestroyed = false;
+    bool sixSecondCountdownPlayed = false;
 
     void FixedUpdate() {
         if (wasRocketDestroyed) {
@@ -57,7 +58,12 @@ public class Rocket2 : MonoBehaviour
         if (count < 1) {
             count = 0;
         }
-        //UnityEngine.Debug.Log("");
+        else if (count <= 7 && !sixSecondCountdownPlayed) {
+            AudioSource hudCountdownSound = GameObject.Find("Rocket 1 hud Canvas").GetComponent<AudioSource>();
+            hudCountdownSound.Play();
+            sixSecondCountdownPlayed = true;
+        }
+        
         GameObject.Find("Liftoff counter 2")
             .GetComponentInChildren<InputField>()
             .text = "T minus " + count + " seconds..";            

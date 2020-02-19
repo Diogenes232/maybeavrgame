@@ -11,6 +11,8 @@ public class SunA : MonoBehaviour
 
     private Rigidbody compRb;
     private Light compLight;
+    GameObject crashSound;
+    GameObject moonCrashSound;
 
     const int secondsBeforeSunMovement1 = MainMain.secondsBeforeSunMovement1;
     const int secondsBeforeSunMovement2 = 9;
@@ -94,17 +96,21 @@ public class SunA : MonoBehaviour
     }
 
     private void doSunMovement1() {
+        crashSound.GetComponent<AudioSource>().Play();
         compRb.AddForce(5, 1, 5, ForceMode.Impulse);
     }
 
-    private void doSunMovement2() {
-        // compRb.AddForce(4, 1.26f, 3.5f, ForceMode.Impulse);
+    private void doSunMovement2() {     
+        moonCrashSound.GetComponent<AudioSource>().Play();   
         compRb.AddForce(-8, -2.52f, -7, ForceMode.Impulse);
     }
     
     void Start() {
         compRb = GetComponent<Rigidbody>();
         compLight = GetComponent<Light>();
+
+        crashSound = GameObject.Find("CrashSound");
+        moonCrashSound = GameObject.Find("MoonCrashSound");
     }
 
 }

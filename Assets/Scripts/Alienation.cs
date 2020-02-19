@@ -7,13 +7,19 @@ using UnityEngine;
 public class Alienation : MonoBehaviour {
 
     List<Transform> aliens = new List<Transform>();
+    
     bool aliensComing = false;
     bool aliensHere = false;
     bool aliensWereHere = false;
+    bool aliensSoundPlayed = false;
+    bool windSoundActivated = false;
+    bool darkSoundsActivated = false;
+
     float rotationFactor = 1.0f;
     bool wasCameraRotatedHalf = false;
     int fullCameraRotations = 0;
     
+    float aliensDistanceToGround = 500.0f;
     float firstSpeedX;
     float firstSpeedY;
 
@@ -29,6 +35,8 @@ public class Alienation : MonoBehaviour {
                 activateAliens(true);
             }
         }
+
+        playSomeAlienSounds();
 
         if (aliensComing && !aliensHere && !aliensWereHere) {
             moveAliensDownwards();
@@ -50,6 +58,7 @@ public class Alienation : MonoBehaviour {
             if (rotationStateY > 0.95f) {
                 wasCameraRotatedHalf = true;
                 rotateCamera(visitorCamera, rotationFactor);
+                //checkOneTimeRotationToLookDown(visitorCamera);
             }
             else if (wasCameraRotatedHalf && rotationStateY > 0.0f && rotationStateY < 0.2) {
                 fullCameraRotations = fullCameraRotations + 1;
@@ -75,6 +84,7 @@ public class Alienation : MonoBehaviour {
             speedY = checkLowerSpeedBounds(differenceToTargetY, speedY);
 
             if (fullCameraRotations > 0 || wasCameraRotatedHalf) {
+                // faster
                 speedY = 10.0f;
                 moveAliensHorizontallyWithSpeed(speedY);
             }
@@ -82,6 +92,32 @@ public class Alienation : MonoBehaviour {
             //UnityEngine.Debug.Log("speedX: " + speedX + "  speedY: " + speedY);
             visitorCamera.transform.Translate(new Vector3(speedX, speedY, 0) * Time.deltaTime, Space.World);
         }
+    }
+
+    private void playSomeAlienSounds() {
+        if (aliensComing && !aliensHere && !aliensWereHere && Math.Abs(aliensDistanceToGround) < 8.0f && !aliensSoundPlayed) {
+            GameObject.Find("DarkZounds").GetComponent<AudioSource>().Play();
+            UnityEngine.Debug.Log("ALIENS();");
+            ALIENS();
+            aliensSoundPlayed = true;
+        }
+
+        if (wasCameraRotatedHalf && !darkSoundsActivated) {
+            GameObject.Find("Wind").GetComponent<AudioSource>().Play();
+            darkSoundsActivated = true;
+        }
+    }
+
+    private void checkOneTimeRotationToLookDown(GameObject visitorCamera) {
+        if (fullCameraRotations == 0) {
+            visitorCamera.transform.Rotate(0.0f, 0.0f, -0.1f, Space.Self);
+        } else if (fullCameraRotations == 1) {
+            visitorCamera.transform.Rotate(0.0f, 0.0f, 0.1f, Space.Self);
+        }
+    }
+
+    private void ALIENS() {
+        GameObject.Find("Aliens").GetComponent<AudioSource>().Play();
     }
 
     private void endGame() {
@@ -93,7 +129,8 @@ public class Alienation : MonoBehaviour {
         }
         aliensWereHere = true;
 
-        rotationFactor = 0.3f;
+        ALIENS();
+        rotationFactor = 0.66f;
     }
 
     private void rotateCamera(GameObject visitorCamera) {
@@ -130,7 +167,8 @@ public class Alienation : MonoBehaviour {
 
     private float calcAliensSpeedY() {
         const float targetPositionY = -25.58f;
-        float speedTowardsTarget = (targetPositionY - transform.position.y) / 2.0f;
+        aliensDistanceToGround = targetPositionY - transform.position.y;
+        float speedTowardsTarget = aliensDistanceToGround / 2.0f;
 
         if (Math.Abs(speedTowardsTarget) < 0.01f) {
             aliensHere = true;

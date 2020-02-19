@@ -6,7 +6,7 @@ using System;
 public class AlienChildRemoval : MonoBehaviour
 {
     MyStopWatch alienationStopWatch;
-    GameObject head, body;
+    GameObject head, body, childEndingSound;
 
     // end phase
     bool isAlienated = false;
@@ -24,6 +24,7 @@ public class AlienChildRemoval : MonoBehaviour
                 long myAlienationDuration = (int) ((Convert.ToSingle(MainMain.secondsOfChildAlienation)*1000.0f) + (1500.0f*randomFloat(0.0f, 1.0f)));
                 if (alienationStopWatch.execeedesMilliseconds(myAlienationDuration)) {
                     // we gonna end this
+                    playSoundOfADyingChild();
                     destroyGameObjectsParent(body);
                     alienationStopWatch.stop();
 
@@ -61,6 +62,10 @@ public class AlienChildRemoval : MonoBehaviour
         Destroy(a.transform.parent.gameObject, 0);
     }
 
+    private void playSoundOfADyingChild() {
+        childEndingSound.GetComponent<AudioSource>().Play();
+    }
+
     void Start()
     {
         // find children nodes
@@ -71,6 +76,7 @@ public class AlienChildRemoval : MonoBehaviour
                 body = child.gameObject;
             }
         }
+        childEndingSound = GameObject.Find("ChildEndingSound");
     }
 
 }
