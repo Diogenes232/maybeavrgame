@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Music : MonoBehaviour {
 
+    AudioSource music;
+
     public void playMusic() {
-        AudioSource music = GetComponent<AudioSource>();
+        music = GetComponent<AudioSource>();
         music.Play();
     }
     
@@ -15,6 +17,9 @@ public class Music : MonoBehaviour {
         DontDestroyOnLoad(this.gameObject);
     }
 
-    void Update() {        
+    void Update() {   
+        if (MainMain.isMusicToStop()) {
+            music.Stop();
+        }     
     }
 }

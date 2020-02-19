@@ -9,11 +9,12 @@ public class Alienation : MonoBehaviour {
     List<Transform> aliens = new List<Transform>();
     
     bool aliensComing = false;
+    bool aliensWereNearlyHere = false;
     bool aliensHere = false;
     bool aliensWereHere = false;
+
     bool aliensSoundPlayed = false;
     bool windSoundActivated = false;
-    bool darkSoundsActivated = false;
 
     float rotationFactor = 1.0f;
     bool wasCameraRotatedHalf = false;
@@ -33,6 +34,10 @@ public class Alienation : MonoBehaviour {
         if (MainMain.myStopWatch.execeedesSeconds(MainMain.secondsBeforeAlienation)) {
             if (!aliensComing && !aliensHere && !aliensWereHere) {
                 activateAliens(true);
+            }
+
+            if (aliensWereNearlyHere) {
+                // MainMain.stopMusic();
             }
         }
 
@@ -95,16 +100,15 @@ public class Alienation : MonoBehaviour {
     }
 
     private void playSomeAlienSounds() {
-        if (aliensComing && !aliensHere && !aliensWereHere && Math.Abs(aliensDistanceToGround) < 8.0f && !aliensSoundPlayed) {
+        if (aliensComing && !aliensHere && !aliensWereHere && aliensWereNearlyHere && !aliensSoundPlayed) {
             GameObject.Find("DarkZounds").GetComponent<AudioSource>().Play();
-            UnityEngine.Debug.Log("ALIENS();");
-            ALIENS();
             aliensSoundPlayed = true;
+            ALIENS();
         }
 
-        if (wasCameraRotatedHalf && !darkSoundsActivated) {
+        if (wasCameraRotatedHalf && !windSoundActivated) {
             GameObject.Find("Wind").GetComponent<AudioSource>().Play();
-            darkSoundsActivated = true;
+            windSoundActivated = true;
         }
     }
 
@@ -149,11 +153,11 @@ public class Alienation : MonoBehaviour {
     }
 
     private void activateAliens(bool activate) {
-        UnityEngine.Debug.Log("Starting the alienation..");
+        UnityEngine.Debug.Log("Alienation: " + activate);
         foreach (Transform alien in aliens) {
             alien.gameObject.SetActive(activate);
         }
-        aliensComing = true;
+        aliensComing = activate;
     }
 
     private void moveAliensDownwards() {
@@ -169,6 +173,11 @@ public class Alienation : MonoBehaviour {
         const float targetPositionY = -25.58f;
         aliensDistanceToGround = targetPositionY - transform.position.y;
         float speedTowardsTarget = aliensDistanceToGround / 2.0f;
+
+        
+        if (Math.Abs(aliensDistanceToGround) < 8.0f) {
+            aliensWereNearlyHere = true;
+        }
 
         if (Math.Abs(speedTowardsTarget) < 0.01f) {
             aliensHere = true;

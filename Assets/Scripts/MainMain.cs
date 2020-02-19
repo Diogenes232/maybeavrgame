@@ -8,6 +8,7 @@ public class MainMain : MonoBehaviour {
 
     public static MyStopWatch myStopWatch = new MyStopWatch();
     private static List<GameObject> activeChildren = new List<GameObject>();
+    private static bool stopMusicCauseAliensAreHere = false;
     private long fun = 70;
 
     // early phase
@@ -52,6 +53,14 @@ public class MainMain : MonoBehaviour {
             return true;
         }
         return false;
+    }
+
+    public static void stopMusic() {
+        stopMusicCauseAliensAreHere = true;
+    }
+
+    public static bool isMusicToStop() {
+        return stopMusicCauseAliensAreHere;
     }
 
     public static float calcDownTempo() {
