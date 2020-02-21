@@ -37,7 +37,7 @@ public class Alienation : MonoBehaviour {
             }
 
             if (aliensWereNearlyHere) {
-                // MainMain.stopMusic();
+                MainMain.switchToAlienMusic();
             }
         }
 

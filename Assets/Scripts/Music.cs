@@ -6,6 +6,8 @@ public class Music : MonoBehaviour {
 
     AudioSource music;
 
+    private bool alienMusicOn = false;
+
     public void playMusic() {
         music = GetComponent<AudioSource>();
         music.Play();
@@ -18,8 +20,17 @@ public class Music : MonoBehaviour {
     }
 
     void Update() {   
-        if (MainMain.isMusicToStop()) {
+        if (MainMain.isToswitchToAlienMusic() && !alienMusicOn) {
             music.Stop();
-        }     
+
+            UnityEngine.Debug.Log("Switching to Alien's music channel");
+            GameObject go = GameObject.Find("Alien Music");
+            AudioSource alienMusic = go.GetComponent<AudioSource>();
+            alienMusic.Play();
+
+            alienMusicOn = true;
+        }
+
+        
     }
 }
